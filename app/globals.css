@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ink: 10 15 26;
+    --paper: 245 244 240;
+    --steel: 138 143 150;
+    --accent: 0 163 180;
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  ::selection {
+    background: rgb(var(--ink) / 0.15);
+    color: rgb(var(--ink));
+  }
+
+  :focus-visible {
+    outline: 1.5px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tighter text-ink;
+  }
+}
+
+@layer components {
+  /* Technical eyebrow */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-eyebrow uppercase text-steel-600 font-mono;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply block h-px w-8 bg-steel-400;
+  }
+
+  /* Small technical tag */
+  .tag {
+    @apply inline-flex items-center gap-2 rounded-sm border border-ink/12 px-2.5 py-1 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-ink/70;
+  }
+
+  /* Numeric index label */
+  .idx {
+    @apply font-mono text-[0.6rem] uppercase tracking-[0.28em] text-steel-500;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide transition-all duration-300 ease-precision;
+  }
+  .btn-primary {
+    @apply btn bg-ink text-paper hover:bg-ink-700;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-ink border border-ink/20 hover:border-ink hover:bg-ink hover:text-paper;
+  }
+
+  /* Precision hairline separator */
+  .rule {
+    @apply block h-px w-full bg-ink/10;
+  }
+  .rule-dark {
+    @apply block h-px w-full bg-paper/12;
+  }
+
+  /* Corner tick marks — technical detail on any container */
+  .corner-marks::before,
+  .corner-marks::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 1px solid currentColor;
+    opacity: 0.35;
+  }
+  .corner-marks::before {
+    top: 8px; left: 8px; border-right: none; border-bottom: none;
+  }
+  .corner-marks::after {
+    bottom: 8px; right: 8px; border-left: none; border-top: none;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+}
